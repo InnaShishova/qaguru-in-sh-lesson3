@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class RegFormTests.java {
+public class RegFormTests {
 
     @BeforeAll
     static void prepareEnvironment() {
@@ -18,7 +18,7 @@ public class RegFormTests.java {
     }
 
     @Test
-     void FillFormTest() {
+   void fillFormTest() {
         //Открытие страницы 'Practice Form'//
         open("/automation-practice-form");
 
