@@ -3,11 +3,12 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class RegFormTests {
+public class RegFormTests {}
+
+public void java; {
 
     @BeforeAll
     static void prepareEnvironment() {
@@ -59,4 +60,5 @@ public class RegFormTests {
        $("#city");
        $("#react-select-4-input").setValue("Karnal").pressEnter();
     }
-}
+
+    }
