@@ -75,7 +75,7 @@ public class RegFormTests {
         $(".table").shouldHave(text("test1@test2.com"));
         $(".table").shouldHave(text("Female"));
         $(".table").shouldHave(text("1234567890"));
-        $(".table").shouldHave(text("15 October,2025"));
+        $(".table").shouldHave(text("15 April,2026"));
         $(".table").shouldHave(text("English"));
         $(".table").shouldHave(text("Reading"));
         $(".table").shouldHave(text("город Москва, улица Ленина"));
