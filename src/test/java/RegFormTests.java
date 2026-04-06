@@ -48,7 +48,7 @@ public class RegFormTests {
         $("#lastName").setValue(lastName);
 
         //Email//
-        $("#userEmail").setValue(email);
+        $("#userEmail").setValue(Email);
 
         //Gender//
         $("#genterWrapper").$(byText(gender)).click();
@@ -73,7 +73,7 @@ public class RegFormTests {
 
         //Current Address//
         $("#currentAddress").scrollTo().shouldBe(visible);
-        $("#currentAddress").setValue(adress);
+        $("#currentAddress").setValue(address);
 
 
         //State and City//
@@ -90,7 +90,7 @@ public class RegFormTests {
 
         $(".table").shouldHave(text(firstName));
         $(".table").shouldHave(text(lastName));
-        $(".table").shouldHave(text(email));
+        $(".table").shouldHave(text(Email));
         $(".table").shouldHave(text(gender));
         $(".table").shouldHave(text(Number));
         $(".table").shouldHave(text(expectedBirthDate));
