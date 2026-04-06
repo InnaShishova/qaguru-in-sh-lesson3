@@ -16,53 +16,71 @@ public class RegFormTests {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.timeout = 3000;
+        Configuration.timeout = 10000;
 
     }
 
     @Test
     void fillFormTest() {
+
+        String firstName = "Ivan";
+        String lastName = "Petrov";
+        String Email = "test1@test2.com";
+        String gender = "Female";
+        String Number = "1234567890";
+        String birthDay = "15";
+        String birthMonth = "October";
+        String birthYear = "2025";
+        String expectedBirthDate = "15 October,2025";
+        String subject = "English";
+        String hobby = "Reading";
+        String picture = "filepicture.jpg";
+        String address = "город Москва, улица Ленина";
+        String state = "Haryana";
+        String city = "Panipat";
+
+
         //Открытие страницы 'Practice Form'//
         open("/automation-practice-form");
 
         //Name//
-        $("#firstName").setValue("Ivan");
-        $("#lastName").setValue("Petrov");
+        $("#firstName").setValue(firstName);
+        $("#lastName").setValue(lastName);
 
         //Email//
-        $("#userEmail").setValue("test1@test2.com");
+        $("#userEmail").setValue(email);
 
         //Gender//
-                $("#genterWrapper").$(byText("Female")).click();
+        $("#genterWrapper").$(byText(gender)).click();
 
         //Mobile//
-                $("#userNumber").setValue("1234567890");
+        $("#userNumber").setValue(Number);
 
         //Date of Birth//
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__year-select").selectOption("2025");
-        $(".react-datepicker__month-select").selectOption("October");
-        $(".react-datepicker__month").$(byText("15")).click();
+        $(".react-datepicker__year-select").selectOption(birthYear);
+        $(".react-datepicker__month-select").selectOption(birthMonth);
+        $(".react-datepicker__month").$(byText(birthDay)).click();
 
         //Subjects//
-        $("#subjectsInput").setValue("English").pressEnter();
+        $("#subjectsInput").setValue(subject).pressEnter();
 
         //Hobbies//
-        $("#hobbiesWrapper").$(byText("Reading")).click();
+        $("#hobbiesWrapper").$(byText(hobby)).click();
 
         //Picture//
-        $("#uploadPicture").uploadFromClasspath("filepicture.jpg");
+        $("#uploadPicture").uploadFromClasspath(picture);
 
         //Current Address//
         $("#currentAddress").scrollTo().shouldBe(visible);
-        $("#currentAddress").setValue("город Москва, улица Ленина");
+        $("#currentAddress").setValue(adress);
 
 
         //State and City//
         $("#state").click();
-        $(byText("Haryana")).click();
+        $(byText("state")).click();
         $("#city").click();
-        $(byText("Panipat")).click();
+        $(byText("city")).click();
 
         //Submit
         $("#submit").click();
@@ -70,16 +88,16 @@ public class RegFormTests {
         //Проверка таблицы
         $("[class=modal-header]").shouldHave(text("Thanks for submitting the form"));
 
-        $(".table").shouldHave(text("Ivan"));
-        $(".table").shouldHave(text("Petrov"));
-        $(".table").shouldHave(text("test1@test2.com"));
-        $(".table").shouldHave(text("Female"));
-        $(".table").shouldHave(text("1234567890"));
-        $(".table").shouldHave(text("15 April,2026"));
-        $(".table").shouldHave(text("English"));
-        $(".table").shouldHave(text("Reading"));
-        $(".table").shouldHave(text("город Москва, улица Ленина"));
-        $(".table").shouldHave(text("Haryana Panipat"));
+        $(".table").shouldHave(text(firstName));
+        $(".table").shouldHave(text(lastName));
+        $(".table").shouldHave(text(email));
+        $(".table").shouldHave(text(gender));
+        $(".table").shouldHave(text(Number));
+        $(".table").shouldHave(text(expectedBirthDate));
+        $(".table").shouldHave(text(subject));
+        $(".table").shouldHave(text(hobby));
+        $(".table").shouldHave(text(address));
+        $(".table").shouldHave(text(state + " " + city));
 
 
         //Закрытие окна
@@ -88,5 +106,6 @@ public class RegFormTests {
 
     }
 }
+
 
 
