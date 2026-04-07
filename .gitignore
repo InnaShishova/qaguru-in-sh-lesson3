@@ -9,5 +9,5 @@ build/
 *.iws
 *.iml
 *.ipr
-
+git rm -r --cached .idea
 
