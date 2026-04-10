@@ -43,6 +43,11 @@ public class RegFormTests {
         //Открытие страницы 'Practice Form'//
         open("/automation-practice-form");
 
+        executeJavaScript("""
+    document.getElementById('fixedban')?.remove();
+    document.querySelector('footer')?.remove();
+""");
+
         //Name//
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
@@ -78,9 +83,9 @@ public class RegFormTests {
 
         //State and City//
         $("#state").click();
-        $(byText("state")).click();
+        $("#stateCity-wrapper").$(byText(state)).click();
         $("#city").click();
-        $(byText("city")).click();
+        $("#stateCity-wrapper").$(byText(city)).click();
 
         //Submit
         $("#submit").click();
@@ -96,9 +101,9 @@ public class RegFormTests {
         $(".table").shouldHave(text(expectedBirthDate));
         $(".table").shouldHave(text(subject));
         $(".table").shouldHave(text(hobby));
+        $(".table").shouldHave(text(picture));
         $(".table").shouldHave(text(address));
         $(".table").shouldHave(text(state + " " + city));
-
 
         //Закрытие окна
         $("#closeLargeModal").click();
