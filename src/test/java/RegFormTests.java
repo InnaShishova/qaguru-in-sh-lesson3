@@ -86,3 +86,125 @@ public class RegFormTests {
     }
 }
 
+//автотест на Успешное заполнение формы только с обязательными полями
+@Test
+void successfulRegistrationWithRequiredFieldsOnlyTest() {
+    String firstName = "Inna";
+    String lastName = "Shishova";
+    String gender = "Female";
+    String number = "9991234567";
+
+    open("/automation-practice-form");
+    executeJavaScript("""
+        document.getElementById('fixedban')?.remove();
+        document.querySelector('footer')?.remove();
+    """);
+
+    $("#firstName").setValue(firstName);
+    $("#lastName").setValue(lastName);
+    $("#genterWrapper").$(byText(gender)).click();
+    $("#userNumber").setValue(number);
+
+    $("#submit").click();
+
+    $(".modal-content").shouldHave(text("Thanks for submitting the form"));
+    $(".table").shouldHave(text(firstName));
+    $(".table").shouldHave(text(lastName));
+    $(".table").shouldHave(text(gender));
+    $(".table").shouldHave(text(number));
+}
+
+//Негативные сценарии
+// Отправка формы без имени
+@Test
+void registrationWithoutFirstNameTest() {
+    $("#firstName").clear();
+    open("/automation-practice-form");
+    executeJavaScript("""
+        document.getElementById('fixedban')?.remove();
+        document.querySelector('footer')?.remove();
+    """);
+
+    $("#lastName").setValue("Petrova");
+    $("#genterWrapper").$(byText("Female")).click();
+    $("#userNumber").setValue("9991234567");
+
+    $("#submit").click();
+
+    $(".modal-content").shouldNotHave(text("Thanks for submitting the form"));
+
+}
+
+//Отправка формы без фамилии
+@Test
+void registrationWithoutLastNameTest() {
+    open("/automation-practice-form");
+    executeJavaScript("""
+        document.getElementById('fixedban')?.remove();
+        document.querySelector('footer')?.remove();
+    """);
+
+    $("#firstName").setValue("Inna");
+    $("#genterWrapper").$(byText("Female")).click();
+    $("#userNumber").setValue("9991234567");
+
+    $("#submit").click();
+
+    $(".modal-content").shouldNotHave(text("Thanks for submitting the form"));
+}
+
+//Телефон меньше 10 цифр
+@Test
+void registrationWithShortPhoneNumberTest() {
+    open("/automation-practice-form");
+    executeJavaScript("""
+        document.getElementById('fixedban')?.remove();
+        document.querySelector('footer')?.remove();
+    """);
+
+    $("#firstName").setValue("Inna");
+    $("#lastName").setValue("Shishova");
+    $("#genterWrapper").$(byText("Female")).click();
+    $("#userNumber").setValue("12345");
+
+    $("#submit").click();
+
+    $(".modal-content").shouldNotHave(text("Thanks for submitting the form"));
+
+//Автотесты на простую форму
+//Позитивный-заполнение минимальных полей
+    @Test
+    void textBoxWithMinimumFieldsTest() {
+        String userName = "Inna";
+        String userEmail = "inna@test.com";
+
+        open("/text-box");
+
+        executeJavaScript("""
+        document.getElementById('fixedban')?.remove();
+        document.querySelector('footer')?.remove();
+    """);
+
+        $("#userName").setValue(userName);
+        $("#userEmail").setValue(userEmail);
+        $("#submit").click();
+
+        $("#output").shouldHave(text(userName));
+        $("#output").shouldHave(text(userEmail));
+    }
+//Негативный-невалидный email
+    @Test
+    void textBoxWithInvalidEmailTest() {
+        open("/text-box");
+
+        executeJavaScript("""
+        document.getElementById('fixedban')?.remove();
+        document.querySelector('footer')?.remove();
+    """);
+
+        $("#userName").setValue("Inna");
+        $("#userEmail").setValue("inna-test.com");
+        $("#submit").click();
+
+        $("#userEmail").shouldHave(attribute("class", "mr-sm-2 field-error form-control"));
+    }
